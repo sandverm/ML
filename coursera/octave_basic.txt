@@ -1,0 +1,124 @@
+a = 2 %Comment
+A = [1 2; 3 4; 5 6]
+who
+whos
+
+save hello.mat A
+save hello.txt A -ascii %save in ascii
+
+A(3, 2)
+A(2, :)  % fetch everything from 2nd row
+A(:, 2)
+
+A([1 3], :) %fetch everything from 1st and 3rd row
+
+A(:, 2) = [10; 11; 12]
+
+A = [A, [100; 101; 102]]   % Append a column to the right
+
+A(:)  %Get all element in a column vector
+
+B = [11; 22; 33]
+
+C = [A B]   % join to matrix, as can be written as [A, B]
+
+D = [44 55 66]
+
+E = [A; D] % Append matrix to Row
+
+clear A 
+clear  % clear all variable 
+
+
+A = [1 2; 3 4;]
+B = [2 2; 3 3;]
+
+C = A*B   % Matrix multiplication
+D = A.*B  % Element wise multiplication
+
+E = A .^ 2  % square all element of the matrix
+
+
+V = [1 2 3; 4 5 6; 7 8 9]
+
+1 ./ V
+
+log(V)
+
+exp(V)
+
+abs(V)
+
+sum(V)
+
+prod(V)
+
+floor(V)
+
+ceil(V)
+
+max(V, [], 1)  
+
+max(V, [], 2)
+
+sum(V, 1)  %column wise sum
+sum(V, 2)  %Row wise sum
+
+flipud(A)
+
+inv(V)
+
+pinv(V)
+
+
+-V   % -1*V
+
+D = ones(2, 3)
+
+A'   %Transpose
+
+max(A)
+
+[val, ind] = max(A)
+
+A < 2  %element wise comparison and return True or False
+
+find(A<2)  %returns element which is less than 2
+
+
+B = magic(3)  %return macix 3*3 matrix whos sum of row and column are same
+
+C = rand(3)
+
+D = zeros(3, 3)
+
+disp("Control statments")
+
+for i=1:10,
+    disp(i)
+end
+
+disp(D)
+for i=1:size(D, 1),
+    D(i, i) = 20
+end
+
+i = 1;
+while true,
+    if i > 3,
+        break
+    elseif i==2,
+        printf("i == %d\n", i)
+    else
+        disp(i)
+    end
+    i++;
+end
+
+
+exit
+printf ("%s\n", program_name);
+for i = 1:nargin
+  printf (" %s", i, argv(i,:));
+endfor
+printf ("\n");

@@ -1,0 +1,13 @@
+load ex1data1.txt;
+x = ex1data1(:, 1);
+y = ex1data1(:, 2);
+X = [ones(length(x), 1), x];
+theta = normalEqn(X, y);
+cost = computeCost(X, y, theta);
+disp(cost);
+
+yh = (theta*X')'
+disp([y, yh])
+
+
+

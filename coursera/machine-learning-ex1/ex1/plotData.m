@@ -17,7 +17,9 @@ figure; % open a new figure window
 %       markers larger by using plot(..., 'rx', 'MarkerSize', 10);
 
 
-
+plot(x, y, 'rx', 'MarkerSize', 10); % Plot the data
+ylabel('Y'); % Set the y􀀀axis label
+xlabel('X'); % Set the x􀀀axis label
 
 
 % ============================================================
