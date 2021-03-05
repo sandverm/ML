@@ -22,8 +22,14 @@ p = zeros(size(X, 1), 1);
 %
 
 
-
-
+bias_x = ones(m, 1);
+X = [bias_x, X];
+z2 = Theta1*X';
+z2 = sigmoid(z2);
+z2 = [ones(1, size(z2, 2)); z2]
+z3 = Theta2*z2;
+%z3 = sigmoid(z3);
+[x, p] = max(z3', [], 2);
 
 
 

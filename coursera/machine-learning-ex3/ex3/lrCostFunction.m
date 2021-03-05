@@ -37,16 +37,29 @@ grad = zeros(size(theta));
 %
 
 
+hy = sigmoid(X*theta);
+J = sum((-y).*log(hy).-((1.-y).*log(1.-hy)), 1)/m;
 
 
+grad = X'*(hy-y)./m;
+grad(1) = 0;
+grad = grad .+ (lambda/m).*theta;
+disp(grad);
 
 
+hy = sigmoid(X*theta);
+J = sum((-y).*log(hy).-((1.-y).*log(1.-hy)), 1)/m + lambda/(2*m)*sum(theta(2:end).^2);
 
-
-
+for c = 1:size(X, 2),
+    grad(c) = sum((hy-y).*X(:, c), 1)/m + (lambda/m)*theta(c)*(c!=1);
+end
+grad = X'*(hy-y)./m;
+disp(grad);
+grad( 2:end, :) = grad(2:end, :) .+ (lambda/m).*theta(2:end, :);
+disp(grad);
 
 % =============================================================
 
-grad = grad(:);
+%grad = grad(:);
 
 end
