@@ -39,6 +39,29 @@ Theta2_grad = zeros(size(Theta2));
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
 %
+
+h1 = sigmoid([ones(m, 1) X] * Theta1');
+h2 = sigmoid([ones(m, 1) h1] * Theta2');
+
+h_mat = h2;
+%h = predict(Theta1, Theta2, X);
+%h = h'
+%h_mat = zeros(size(X, 1), num_labels);
+
+y_mat = zeros(size(X, 1), num_labels);
+
+for i=1:size(y, 1),
+   % h_mat(i, h(i, 1)) = 1;
+    y_mat(i, y(i, 1)) = 1;
+end 
+[h_mat, y_mat];
+
+log_h = log(h_mat);
+log_1h = log(1-h_mat);
+J = sum(sum((-y_mat).*log_h.-((1.-y_mat).*log_1h), 2), 1)/m;
+
+J = J + (sum(sum(Theta1(:,[2:end]).^2)) + sum(sum(Theta2(:, [2:end]).^2)))*lambda/(2*m);
+
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
 %         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
@@ -54,6 +77,33 @@ Theta2_grad = zeros(size(Theta2));
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
+
+a1 = [ones(m, 1), X];
+z2 = a1 * Theta1';
+a2 = sigmoid(z2);
+a2 = [ones(m, 1), a2];
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
+
+y_mat = zeros(size(X, 1), num_labels);
+
+for i=1:size(y, 1),
+    y_mat(i, y(i, 1)) = 1;
+end
+delta3 = a3.-y_mat;
+
+delta2 = (delta3*Theta2).* sigmoidGradient([ones(m, 1),z2]);
+
+delta2 = delta2(:, [2:end]);
+
+Delta2 = delta3' * a2; 
+Delta1 = delta2' * a1;
+
+Theta2_grad = Delta2/m;
+Theta1_grad = Delta1/m;
+ 
+grade = [Theta1_grad(:); Theta2_grad(:)];
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
@@ -61,22 +111,11 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
+Theta1(:, 1) = 0;
+Theta2(:, 1) = 0; 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Theta1_grad = Theta1_grad + Theta1*lambda/m;
+Theta2_grad = Theta2_grad + Theta2*lambda/m;
 
 
 
@@ -86,6 +125,5 @@ Theta2_grad = zeros(size(Theta2));
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
 
 end
