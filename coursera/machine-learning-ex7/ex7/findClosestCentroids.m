@@ -21,11 +21,23 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+for i=1:size(X,1),
+    min_dist = NaN;
+    indx = 0;
+    for c=1:K,
+        dist = sqrt(sum((X(i, :).-centroids(c, :)).^2));
+        if isnan(min_dist),
+            min_dist = dist;
+            indx = c;
+        end
+        if min_dist > dist,
+            min_dist = dist;
+            indx = c;
+        end            
 
-
-
-
-
+    idx(i, :) = indx;
+    end
+end
 
 % =============================================================
 
